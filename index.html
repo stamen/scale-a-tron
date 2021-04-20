@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>scale-a-tron</title>
+
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.13.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.13.1/mapbox-gl.js"></script>
+    
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.2.2/mapbox-gl-draw.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.2.2/mapbox-gl-draw.css" type="text/css">
+    
+    <link rel="stylesheet" href="./style.css" />
+    
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <div class="interface">
+      <h1>
+        scale-a-tron
+      </h1>
+      <div class="explanation">
+        <ol>
+          <li>Draw a polygon</li>
+          <li>Click "add to map"</li>
+          <li>Pan around and compare the area you selected to other areas</li>
+        </ol>
+      </div>
+      <div class="input">
+        <button class="capture-button" disabled="true">
+          add to map
+        </button>
+        <button style="display: none;" class="rotate-button">
+          rotate
+        </button>
+        <button style="display: none;" class="clear-button">
+          clear
+        </button>
+      </div>
+      <div class="input">
+        <label>opacity:</label>
+        <input type="range" min="0" max="1" step="any" value="1" class="opacity-slider" />
+      </div>
+    </div>
+    
+    <div id="map"></div>
+    <canvas class="mask-canvas"></canvas>
+    <canvas id="clipped-canvas" class="clipped-canvas" style="border: 1px solid gray;"></canvas>
+    <canvas class="modify-canvas" style="border: 1px solid gray;"></canvas>
+    <canvas id="dest-canvas" class="dest-canvas" style="border: 1px solid gray;"></canvas>
+  </body>
+</html>
