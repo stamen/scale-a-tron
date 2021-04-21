@@ -103,8 +103,7 @@ function getContext(canvas, width, height, scale = 1) {
   canvas.style.width = width / scale + 'px';
   canvas.style.height = height / scale + 'px';
 
-  const ctx = canvas.getContext('2d');
-  return ctx;
+  return canvas.getContext('2d');
 }
 
 function updateShape() {
