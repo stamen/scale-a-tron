@@ -42,10 +42,10 @@ function zoomRatio(lat, zoom) {
 map.on('move', e => {
   const canvasSource = map.getSource('canvas-source');
   if (!canvasSource) return;
-  
+
   let currentMetersPerPx = zoomRatio(map.getCenter().lat, map.getZoom());
   let scale = currentArea.metersPerPx / currentMetersPerPx;
-  
+
   canvasSource.setCoordinates(getCanvasCoordinates(currentArea, scale));
 });
 
@@ -60,16 +60,16 @@ map.on('mousemove', e => {
     const dy = mouseY - mapCenter.y;
 
     const ctx = getContext(modifyCanvas, currentArea.canvasWidth / dpr, currentArea.canvasHeight / dpr, dpr);
-    
+
     ctx.save();
     ctx.translate(currentArea.canvasWidth / 2, currentArea.canvasHeight / 2);
     ctx.rotate(-Math.atan2(dy, dx));
-    
-    
+
+
     ctx.drawImage(clippedCanvas,
-                  0, 0, currentArea.canvasWidth, currentArea.canvasHeight,
-                  -currentArea.canvasWidth / 2, -currentArea.canvasHeight / 2, currentArea.canvasWidth, currentArea.canvasHeight);
-    
+      0, 0, currentArea.canvasWidth, currentArea.canvasHeight,
+      -currentArea.canvasWidth / 2, -currentArea.canvasHeight / 2, currentArea.canvasWidth, currentArea.canvasHeight);
+
     ctx.restore();
 
     const destCtx = getContext(destCanvas, currentArea.canvasWidth / dpr, currentArea.canvasHeight / dpr, dpr);
@@ -82,7 +82,7 @@ map.on('click', e => {
     rotating = false;
   }
 })
- 
+
 const draw = new MapboxDraw({
   displayControlsDefault: false,
   controls: {
@@ -99,10 +99,10 @@ map.on('draw.update', updateShape);
 function getContext(canvas, width, height, scale = 1) {
   canvas.width = width * scale;
   canvas.height = height * scale;
-  
+
   canvas.style.width = width / scale + 'px';
   canvas.style.height = height / scale + 'px';
-  
+
   const ctx = canvas.getContext('2d');
   return ctx;
 }
@@ -111,19 +111,19 @@ function updateShape() {
   const shapeCoordinates = draw.getAll().features[0].geometry.coordinates[0];
   const shapePoints = shapeCoordinates.map(c => {
     const p = map.project(c);
-    
+
     // Account for pixel density
     return {
       x: dpr * Math.round(p.x),
       y: dpr * Math.round(p.y)
     }
   });
-  
+
   pointsExtent = [
     [+Infinity, +Infinity],
     [-Infinity, -Infinity],
   ];
-  
+
   shapePoints.forEach(({x, y}) => {
     if (x < pointsExtent[0][0]) {
       pointsExtent[0][0] = x;
@@ -138,12 +138,12 @@ function updateShape() {
       pointsExtent[1][1] = y;
     }
   });
-  
+
   clipPath = new Path2D();
   clipPath.moveTo(shapePoints[0].x, shapePoints[0].y);
   shapePoints.slice(1, -1).forEach(p => clipPath.lineTo(p.x, p.y));
   clipPath.closePath();
-  
+
   captureButton.removeAttribute('disabled');
 }
 
@@ -151,14 +151,14 @@ function getCanvasCoordinates(region, scale = 1) {
   let { x, y } = map.project(map.getCenter());
   let widthOffset = (region.canvasWidth * scale / dpr) / 2;
   let heightOffset = (region.canvasHeight * scale / dpr) / 2;
-  
+
   let points = [
     [x - widthOffset, y - heightOffset],
     [x + widthOffset, y - heightOffset],
     [x + widthOffset, y + heightOffset],
     [x - widthOffset, y + heightOffset]
   ];
-  
+
   return points
     .map(p => {
       const latlng = map.unproject(p);
@@ -264,7 +264,7 @@ clearButton.addEventListener('click', () => {
   captureButton.setAttribute('disabled', 'true');
   clearButton.style.display = 'none';
   rotateButton.style.display = 'none';
-  
+
   map.removeLayer('canvas-layer');
   map.removeSource('canvas-source');
 });
