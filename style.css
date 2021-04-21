@@ -79,3 +79,8 @@ h1 {
   margin: 0;
   padding-left: 1rem;
 }
+
+.credits {
+  font-size: 0.8em;
+  margin-top: 2em;
+}
