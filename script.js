@@ -1,10 +1,18 @@
+mapboxgl.accessToken = 'pk.eyJ1Ijoic3RhbWVuIiwiYSI6IlpkZEtuS1EifQ.jiH_c9ShtBwtqH9RdG40mw';
+
 var map = new mapboxgl.Map({
-  accessToken: 'pk.eyJ1Ijoic3RhbWVuIiwiYSI6IlpkZEtuS1EifQ.jiH_c9ShtBwtqH9RdG40mw',
   container: 'map',
   style: 'mapbox://styles/stamen/cknpiguav27ds17tc38fn499t',
   center: [-74, 40.7],
   zoom: 10
 });
+
+map.addControl(
+  new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    mapboxgl: mapboxgl
+  })
+);
 
 let currentArea;
 
