@@ -2,8 +2,8 @@ mapboxgl.accessToken = 'pk.eyJ1Ijoic3RhbWVuIiwiYSI6IlpkZEtuS1EifQ.jiH_c9ShtBwtqH
 
 var map = new mapboxgl.Map({
   container: 'map',
-  // style: 'mapbox://styles/stamen/cknpiguav27ds17tc38fn499t',
-  style: 'https://api.maptiler.com/maps/hybrid/style.json?key=BtdqFC6044TX76BVTiPq',
+  style: 'mapbox://styles/stamen/cknpiguav27ds17tc38fn499t',
+  // style: 'https://api.maptiler.com/maps/hybrid/style.json?key=BtdqFC6044TX76BVTiPq',
   center: [-74, 40.7],
   zoom: 10
 });
